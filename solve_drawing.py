@@ -4,7 +4,7 @@ from pygame.locals import *
 import sys
 
 sys.setrecursionlimit(10000)
-'''
+
 while True:
     try:
         width = int(input('width:'))
@@ -22,8 +22,8 @@ while True:
         break
     else:
         print('deepかwideを入力してください')
-'''
-maze = solve.MazeSolver(45, 45, 'wide')
+
+maze = solve.MazeSolver(width, height, mode)
 
 SCREEN_SIZE = 800
 cell_size_w = 800 / maze.maze_instance.width

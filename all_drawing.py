@@ -5,7 +5,25 @@ import sys
 
 sys.setrecursionlimit(10000)
 
-maze = solve.MazeSolver(15, 15, 'deep')
+while True:
+    try:
+        width = int(input('width:'))
+        height = int(input('height:'))
+        if width % 2 == 1 and height % 2 == 1:
+            break
+        else:
+            print('奇数の整数値を入力してください')
+    except ValueError:
+        print('奇数の整数値を入力してください')
+
+while True:
+    mode = input('deep or wide:')
+    if mode in ['deep', 'wide']:
+        break
+    else:
+        print('deepかwideを入力してください')
+
+maze = solve.MazeSolver(width, height, mode)
 
 SCREEN_SIZE = 800
 cell_size_w = 800 / maze.maze_instance.width
