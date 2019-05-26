@@ -59,14 +59,13 @@ while True:
                              Rect(i[1] * cell_size_h, i[0] * cell_size_w, cell_size_h + 1, cell_size_w + 1))
 
     if maze.goal not in close_cell:
-        pygame.display.update()
         count += 1
     else:
         for i in maze.answer:
             if maze.maze[i[1]][i[0]] != 2 and maze.maze[i[1]][i[0]] != 3:
                 pygame.draw.rect(screen, (0, 0, 255),
                                  Rect(i[1] * cell_size_h, i[0] * cell_size_w, cell_size_h + 1, cell_size_w + 1))
-        pygame.display.update()
+    pygame.display.update()
 
     for event in pygame.event.get():
         if event.type == QUIT:
