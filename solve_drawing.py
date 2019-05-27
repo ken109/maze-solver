@@ -18,7 +18,7 @@ while True:
 
 while True:
     mode = input('deep or wide:')
-    if mode in ['deep', 'wide']:
+    if mode in ['deep', 'wide', 'a_star']:
         break
     else:
         print('deepかwideを入力してください')
@@ -37,7 +37,7 @@ c = pygame.time.Clock()
 count = 0
 
 while True:
-    c.tick(60)
+    c.tick(10)
     screen.fill((0, 0, 0,))
 
     for i in range(maze.maze_instance.height):

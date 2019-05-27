@@ -12,7 +12,7 @@ class MazeCreator:
                      range(self.height)]
         self.start_cells = [[i, j] for i in range(1, self.width, 2) for j in range(1, self.height, 2)]
         self.start_cells.remove(self.start)
-        self.diged_cells = [self.start]
+        self.dug_cells = [self.start]
         self.dig(self.start)
 
     def dig(self, cell):
@@ -38,29 +38,29 @@ class MazeCreator:
                 self.maze[cell[1] + 1][cell[0]] = 0
                 self.maze[cell[1] + 2][cell[0]] = 0
                 self.last_cell = [cell[0], cell[1] + 2]
-                self.diged_cells.append([cell[0], cell[1] + 1])
-                self.diged_cells.append([cell[0], cell[1] + 2])
+                self.dug_cells.append([cell[0], cell[1] + 1])
+                self.dug_cells.append([cell[0], cell[1] + 2])
                 self.dig([cell[0], cell[1] + 2])
             elif direction == 'up':
                 self.maze[cell[1] - 1][cell[0]] = 0
                 self.maze[cell[1] - 2][cell[0]] = 0
                 self.last_cell = [cell[0], cell[1] - 2]
-                self.diged_cells.append([cell[0], cell[1] - 1])
-                self.diged_cells.append([cell[0], cell[1] - 2])
+                self.dug_cells.append([cell[0], cell[1] - 1])
+                self.dug_cells.append([cell[0], cell[1] - 2])
                 self.dig([cell[0], cell[1] - 2])
             elif direction == 'right':
                 self.maze[cell[1]][cell[0] + 1] = 0
                 self.maze[cell[1]][cell[0] + 2] = 0
                 self.last_cell = [cell[0] + 2, cell[1]]
-                self.diged_cells.append([cell[0] + 1, cell[1]])
-                self.diged_cells.append([cell[0] + 2, cell[1]])
+                self.dug_cells.append([cell[0] + 1, cell[1]])
+                self.dug_cells.append([cell[0] + 2, cell[1]])
                 self.dig([cell[0] + 2, cell[1]])
             elif direction == 'left':
                 self.maze[cell[1]][cell[0] - 1] = 0
                 self.maze[cell[1]][cell[0] - 2] = 0
                 self.last_cell = [cell[0] - 2, cell[1]]
-                self.diged_cells.append([cell[0] - 1, cell[1]])
-                self.diged_cells.append([cell[0] - 2, cell[1]])
+                self.dug_cells.append([cell[0] - 1, cell[1]])
+                self.dug_cells.append([cell[0] - 2, cell[1]])
                 self.dig([cell[0] - 2, cell[1]])
         else:
             next_cell = self.get_cell()

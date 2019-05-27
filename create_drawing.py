@@ -18,7 +18,7 @@ count = 0
 while True:
     screen.fill((0, 0, 0,))
 
-    draw_cells = maze.diged_cells[:count]
+    draw_cells = maze.dug_cells[:count]
 
     for i in draw_cells:
         if maze.maze[i[1]][i[0]] != 2 and maze.maze[i[1]][i[0]] != 3:
