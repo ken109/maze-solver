@@ -17,11 +17,11 @@ while True:
         print('奇数の整数値を入力してください')
 
 while True:
-    mode = input('deep or wide:')
+    mode = input('deep or wide or a_star:')
     if mode in ['deep', 'wide', 'a_star']:
         break
     else:
-        print('deepかwideを入力してください')
+        print('deepかwideかa_starを入力してください')
 
 maze = solve.MazeSolver(width, height, mode)
 
