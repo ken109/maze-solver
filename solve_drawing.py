@@ -31,7 +31,12 @@ cell_size_h = 800 / maze.maze_instance.height
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
-pygame.display.set_caption("穴掘り法: 幅優先探索")
+if mode == 'wide':
+    pygame.display.set_caption("穴掘り法: 幅優先探索")
+elif mode == 'deep':
+    pygame.display.set_caption("穴掘り法: 深さ優先探索")
+elif mode == 'a_star':
+    pygame.display.set_caption("穴掘り法: a*アルゴリズム")
 c = pygame.time.Clock()
 
 count = 0
