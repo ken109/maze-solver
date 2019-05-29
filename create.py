@@ -74,6 +74,9 @@ class MazeCreator:
             else:
                 self.dig([next_cell[0], next_cell[1]])
 
+    def obstacle(self):
+        pass
+
     def get_cell(self):
         if len(self.start_cells) == 0:
             cell = None
