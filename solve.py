@@ -81,9 +81,9 @@ class MazeSolver:
     def a_star(self):
         # オープンリストに要素があるなら取り出す
         if len(self.a_open) > 0:
-            node = self.node_choice() # [[x, y], [a, b]]
-            n_cell = node[0] # [x, y]
-            n_cost = node[1] # [a, b]
+            node = self.node_choice()  # [[x, y], [a, b]]
+            n_cell = node[0]  # [x, y]
+            n_cost = node[1]  # [a, b]
             # 取り出したノードがゴールで終了
             if node[0] == self.goal:
                 self.answer_pointer(self.goal)

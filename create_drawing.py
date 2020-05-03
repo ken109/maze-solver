@@ -4,10 +4,21 @@ from pygame.locals import *
 import sys
 import time
 
-maze = create.MazeCreator(45, 45)
+while True:
+    try:
+        width = int(input('width:'))
+        height = int(input('height:'))
+        if width % 2 == 1 and height % 2 == 1:
+            break
+        else:
+            print('奇数の整数値を入力してください')
+    except ValueError:
+        print('奇数の整数値を入力してください')
+
+maze = create.MazeCreator(width, height)
 
 SCREEN_SIZE = 800
-cell_size = 800 / maze.width
+cell_size = int(800 / maze.width)
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))

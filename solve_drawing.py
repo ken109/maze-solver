@@ -26,8 +26,8 @@ while True:
 maze = solve.MazeSolver(width, height, mode)
 
 SCREEN_SIZE = 800
-cell_size_w = 800 / maze.maze_instance.width
-cell_size_h = 800 / maze.maze_instance.height
+cell_size_w = int(800 / maze.maze_instance.width)
+cell_size_h = int(800 / maze.maze_instance.height)
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
