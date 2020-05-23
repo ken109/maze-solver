@@ -17,11 +17,11 @@ while True:
         print('奇数の整数値を入力してください')
 
 while True:
-    mode = input('deep or wide:')
-    if mode in ['deep', 'wide']:
+    mode = input('deep or wide or a_star:')
+    if mode in ['deep', 'wide', 'a_star']:
         break
     else:
-        print('deepかwideを入力してください')
+        print('deepかwideかa_starを入力してください')
 
 maze = solve.MazeSolver(width, height, mode)
 
@@ -35,6 +35,8 @@ if mode == 'wide':
     pygame.display.set_caption("穴掘り法: 幅優先探索")
 elif mode == 'deep':
     pygame.display.set_caption("穴掘り法: 深さ優先探索")
+elif mode == 'a_star':
+    pygame.display.set_caption("穴掘り法: a*アルゴリズム")
 c = pygame.time.Clock()
 
 c_count = 0
@@ -44,7 +46,7 @@ while True:
     c.tick(60)
     screen.fill((0, 0, 0,))
 
-    c_cells = maze.maze_instance.diged_cells[:c_count]
+    c_cells = maze.maze_instance.dug_cells[:c_count]
     for i in c_cells:
         if maze.maze[i[1]][i[0]] != 2 and maze.maze[i[1]][i[0]] != 3:
             pygame.draw.rect(screen, (255, 255, 255),
