@@ -1,9 +1,14 @@
+import pygame
+from pygame.locals import *
+
 import create
 
 
 class MazeSolver:
-    def __init__(self, width=45, height=45, mode='wide'):
-        self.maze_instance = create.MazeCreator(width, height)
+    draw_count = 0
+
+    def __init__(self, mode='wide'):
+        self.maze_instance = create.MazeCreator.new()
         self.maze = self.maze_instance.maze
         self.start = self.maze_instance.start
         self.goal = self.maze_instance.last_cell
@@ -12,6 +17,7 @@ class MazeSolver:
         self.a_open = []
         self.close = []
         self.answer = []
+        self.mode = mode
         if mode == 'wide':
             self.open.append(self.start)
             self.wide()
@@ -21,6 +27,16 @@ class MazeSolver:
         elif mode == 'a_star':
             self.a_open.append([self.start, [0, self.get_cost(self.start)]])
             self.a_star()
+
+    @classmethod
+    def new(cls):
+        while True:
+            mode = int(input('[1] deep\n[2] wide\n[3] a_star: '))
+            if 1 <= mode <= 3:
+                break
+            else:
+                print('入力が正しくありません。')
+        return cls(mode=['deep', 'wide', 'a_star'][mode - 1])
 
     def wide(self):
         # オープンリストに要素があるなら取り出す
@@ -147,9 +163,28 @@ class MazeSolver:
                 else:
                     self.answer.insert(0, i[0])
 
+    def draw_cells(self, screen, screen_size, delay: bool = True):
+        if self.maze_instance.draw_cells(screen, screen_size, delay):
+            cell_width = screen_size / self.maze_instance.column
+            cell_height = screen_size / self.maze_instance.row
+
+            closed_cells = self.close[:self.draw_count] if delay else self.close
+
+            for i in closed_cells:
+                if self.maze[i[1]][i[0]] != 2 and self.maze[i[1]][i[0]] != 3:
+                    pygame.draw.rect(screen, (178, 208, 255),
+                                     Rect(i[0] * cell_height, i[1] * cell_width, cell_height + 1, cell_width + 1))
+            if self.goal not in closed_cells:
+                self.draw_count += 1
+            else:
+                for i in self.answer:
+                    if self.maze[i[1]][i[0]] != 2 and self.maze[i[1]][i[0]] != 3:
+                        pygame.draw.rect(screen, (0, 0, 255),
+                                         Rect(i[0] * cell_height, i[1] * cell_width, cell_height + 1, cell_width + 1))
+
 
 if __name__ == '__main__':
-    m = MazeSolver(9, 9, 'a_star')
+    m = MazeSolver(mode='a_star')
     print(m.maze)
     print(m.close)
     print(m.answer)

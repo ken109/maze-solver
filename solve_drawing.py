@@ -1,75 +1,30 @@
-import solve
+import sys
+
 import pygame
 from pygame.locals import *
-import sys
+
+import solve
 
 sys.setrecursionlimit(10000)
 
-while True:
-    try:
-        width = int(input('width:'))
-        height = int(input('height:'))
-        if width % 2 == 1 and height % 2 == 1:
-            break
-        else:
-            print('奇数の整数値を入力してください')
-    except ValueError:
-        print('奇数の整数値を入力してください')
-
-while True:
-    mode = input('deep or wide or a_star:')
-    if mode in ['deep', 'wide', 'a_star']:
-        break
-    else:
-        print('deepかwideかa_starを入力してください')
-
-maze = solve.MazeSolver(width, height, mode)
+maze = solve.MazeSolver.new()
 
 SCREEN_SIZE = 800
-cell_size_w = int(800 / maze.maze_instance.width)
-cell_size_h = int(800 / maze.maze_instance.height)
 
 pygame.init()
 screen = pygame.display.set_mode((SCREEN_SIZE, SCREEN_SIZE))
-if mode == 'wide':
+if maze.mode == 'wide':
     pygame.display.set_caption("穴掘り法: 幅優先探索")
-elif mode == 'deep':
+elif maze.mode == 'deep':
     pygame.display.set_caption("穴掘り法: 深さ優先探索")
-elif mode == 'a_star':
+elif maze.mode == 'a_star':
     pygame.display.set_caption("穴掘り法: a*アルゴリズム")
-c = pygame.time.Clock()
-
-count = 0
 
 while True:
-    c.tick(10)
-    screen.fill((0, 0, 0,))
+    pygame.time.Clock().tick(60)
 
-    for i in range(maze.maze_instance.height):
-        for j in range(maze.maze_instance.width):
-            if maze.maze[i][j] == 0:
-                pygame.draw.rect(screen, (255, 255, 255),
-                                 Rect(i * cell_size_h, j * cell_size_w, cell_size_h + 1, cell_size_w + 1))
-            elif maze.maze[i][j] == 2:
-                pygame.draw.rect(screen, (0, 255, 0),
-                                 Rect(i * cell_size_h, j * cell_size_w, cell_size_h + 1, cell_size_w + 1))
-            elif maze.maze[i][j] == 3:
-                pygame.draw.rect(screen, (255, 0, 0),
-                                 Rect(i * cell_size_h, j * cell_size_w, cell_size_h + 1, cell_size_w + 1))
+    maze.draw_cells(screen, SCREEN_SIZE)
 
-    close_cell = maze.close[:count]
-    for i in close_cell:
-        if maze.maze[i[1]][i[0]] != 2 and maze.maze[i[1]][i[0]] != 3:
-            pygame.draw.rect(screen, (178, 208, 255),
-                             Rect(i[1] * cell_size_h, i[0] * cell_size_w, cell_size_h + 1, cell_size_w + 1))
-
-    if maze.goal not in close_cell:
-        count += 1
-    else:
-        for i in maze.answer:
-            if maze.maze[i[1]][i[0]] != 2 and maze.maze[i[1]][i[0]] != 3:
-                pygame.draw.rect(screen, (0, 0, 255),
-                                 Rect(i[1] * cell_size_h, i[0] * cell_size_w, cell_size_h + 1, cell_size_w + 1))
     pygame.display.update()
 
     for event in pygame.event.get():
